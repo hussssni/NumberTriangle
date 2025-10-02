@@ -88,9 +88,26 @@ public class NumberTriangle {
      *
      */
     public int retrieve(String path) {
-        // TODO implement this method
-        return -1;
+        NumberTriangle triangle = this; // start at the current node (the top)
+
+        for (int i = 0; i < path.length(); i++) {
+            char step = path.charAt(i);
+            if (step == 'l') {
+                triangle = triangle.left;
+            } else if (step == 'r') {
+                triangle = triangle.right;
+            } else {
+                throw new IllegalArgumentException("Path must only contain 'l' or 'r'");
+            }
+
+            if (triangle == null) {
+                throw new IllegalArgumentException("Invalid path: reached null node");
+            }
+        }
+
+        return triangle.root; // return the value at the final node
     }
+
 
     /** Read in the NumberTriangle structure from a file.
      *
